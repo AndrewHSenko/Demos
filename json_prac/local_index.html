@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content=""width=device-width, initial-scale="1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Title</title>
+    </head>
+    <body>
+        <div id="addButton">Add to Storage</div>
+        <input type="text" id="firstName">
+        <input type="text" id="lastName">
+        <div id="viewButton">View Storage</div>
+        <div id="clearButton">Clear Storage</div>
+        <script>
+            const people = JSON.parse(localStorage.getItem("tester")) || {"first": "N/A", "last": "N/A"};
+            document.getElementById("addButton").addEventListener('click', addToStorage);
+            function addToStorage() {
+                let tempFirst = document.getElementById("firstName").value;
+                let tempLast = document.getElementById("lastName").value;
+                let name = {"first" : tempFirst, "last" : tempLast};
+                name = JSON.stringify(name)
+                localStorage.setItem("tester", name);
+            }
+            document.getElementById("viewButton").addEventListener('click', viewStorage);
+            function viewStorage() {
+                let tempHolder = localStorage.getItem("tester") || people;
+                console.log(tempHolder)
+            }
+            document.getElementById("clearButton").addEventListener('click', clearStorage);
+            function clearStorage() {
+                localStorage.clear();
+            }
+            
+            
+        </script>
+    </body>
+</html>
+
+<!-- 
+    let tString = "Hello";
+    const tNumber = 3;
+    var tBoolean = true;
+    var tNull = null;
+    var tUndefined = undefined;
+    var tArray = ['test', 30, [5, 6, 6]];
+    var tObjects = {first:'Laurence'}; // key must be quoted for JSON
+    tObjects.second = 'William';
+    tObjects['third'] = 'Grayston';
+    const exampleFunc = {'test' : function(){return 'Hello';}}
+-->
+
+<!--
+    let fullName = {"first" : "Paul", "last" : "the Chipmunk"}; // Frequent visitor of my backyard
+    let stringified = JSON.stringify(fullName);
+    let parsified = JSON.parse(stringified)
+-->

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content=""width=device-width, initial-scale="1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Title</title>
+    </head>
+    <body>
+        <div id="getButton">Get User</div>
+        <div id="testButton">Test</div>
+        <div id="output"></div>
+        <script>
+            const getButton = document.getElementById("getButton");
+            getButton.addEventListener('click', getJSON);
+            const output = document.querySelector('#output');
+            String.prototype.capitalize = function() {
+                return this.charAt(0).toUpperCase() + this.slice(1);
+            }
+            function getJSON() {
+                output.innerHTML = "";
+                const url = "https://randomuser.me/api/?results=10";
+                fetch(url)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    let people = data.results;
+                    return people.map(function(person, i) {
+                        let div = document.createElement('div');
+                        let img = document.createElement('img');
+                        img.src = person.picture.thumbnail;
+                        let span = document.createElement('span');
+                        let firstName = person.name.first.capitalize();
+                        let lastName = person.name.last.capitalize();
+                        span.innerHTML = 'Candidate ' + (i + 1) + ': ' + firstName + ' ' + lastName + '<br>';
+                        div.appendChild(span);
+                        div.appendChild(img);
+                        output.appendChild(div);
+                    })
+                })
+                .catch(function(error) {
+                    console.log(error);
+                })
+            }
+            
+        </script>
+    </body>
+</html>
+
+<!--
+    function getJSON() {
+            output.innerHTML = "WORKING";
+            const url = "https://myjson.dit.upm.es/api/bins/7lxg";
+            fetch(url)
+            .then(function(response) {
+                // return response.text()
+                return response.json();
+            })
+            .then(function(data) {
+                output.innerHTML = "First name: " + data.first + "<br>Last name: " + data.last;
+            });
+        }
+-->
+
+<!-- 
+    const testButton = document.getElementById("testButton");
+            getButton.addEventListener('click', tester);
+            function tester() {
+                let tempArray = [4, 5, 6, 7, 9, 122];
+                const html_output = tempArray.map(function(val) {
+                    return "<li>" + (val * 2) + "</li>";
+                })
+                output.innerHTML = "<ul>" + html_output.join('') + "</ul>" // Changes from array to HTML string
+            }
+-->
